@@ -1,6 +1,6 @@
-# fanm
+# status-checker
 
-Fault Assertion Network Monitor (fanm)
+Status Checker
 
 ## License
 
