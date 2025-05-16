@@ -1,0 +1,32 @@
+# Whether checks are enabled by default (default: true).
+enabled_by_default: true
+
+# Default interval for how often to run checks (default: 30s).
+interval: 30s
+
+# Port on which the metrics server will run (default: 9090).
+prom_port: 9090
+
+logs:
+  # Pretty-print logs (default: false)
+  pretty: true
+  # Log level: trace, debug, info, warn, error, fatal, panic (default: info).
+  level: trace
+
+# Directory where check scripts reside (default: ./checks/).
+checks_dir: ./checks/
+
+# Automatically make check scripts executable (default: false).
+modify_permissions: false
+
+# Maps the relative file name (inside of `checks_dir`) of the script to 
+# the check configuration.
+checks:
+  block-height.sh:
+    # Whether this specific check is enabled (default: enabled_by_default).
+    enabled: true
+    # Interval for this specific check (default: interval).
+    interval: 45s
+  block-height.py:
+    enabled: true
+    interval: 30s

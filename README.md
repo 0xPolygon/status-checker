@@ -1,6 +1,7 @@
 # status-checker
 
-Status Checker
+See [config.yml](./config.yml) for documentation of all of the configuration
+options.
 
 ## License
 
