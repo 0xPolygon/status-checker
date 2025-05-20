@@ -100,7 +100,7 @@ func loadConfig() (*Config, error) {
 	v.SetDefault("prom_port", 9090)
 
 	if err := v.ReadInConfig(); err != nil {
-		return nil, err
+		log.Warn().Msg("No config file found, using defaults")
 	}
 
 	opts := viper.DecodeHook(
