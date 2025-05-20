@@ -13,8 +13,8 @@ logs:
   # Log level: trace, debug, info, warn, error, fatal, panic (default: info).
   level: trace
 
-# Directory where check scripts reside (default: ./checks/).
-checks_dir: ./checks/
+# Directory where check scripts reside (default: ./checks).
+checks_dir: ./checks
 
 # Automatically make check scripts executable (default: false).
 modify_permissions: false

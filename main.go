@@ -93,7 +93,7 @@ func loadConfig() (*Config, error) {
 
 	v.SetDefault("enabled_by_default", true)
 	v.SetDefault("interval", "30s")
-	v.SetDefault("checks_dir", "./checks/")
+	v.SetDefault("checks_dir", "./checks")
 	v.SetDefault("logs::pretty", false)
 	v.SetDefault("logs::level", "info")
 	v.SetDefault("modify_permissions", false)
