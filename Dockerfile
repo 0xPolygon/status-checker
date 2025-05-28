@@ -1,7 +1,7 @@
 FROM golang:1.24-bullseye AS builder
 WORKDIR /app
 COPY . .
-ENV CGO_ENABLED=0 GOOS=linux
+ENV GOOS=linux
 RUN go build -o status-checker main.go
 
 # https://hub.docker.com/r/leovct/toolbox
