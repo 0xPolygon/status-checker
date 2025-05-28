@@ -20,7 +20,7 @@ checks_dir: ./checks
 modify_permissions: false
 
 # Whether to run Antithesis test assertions (default: false).
-antithesis: true
+antithesis: false
 
 # Maps the relative file name (inside of `checks_dir`) of the script to
 # the check configuration.
