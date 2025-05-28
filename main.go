@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"net/http"
 	"os"
@@ -85,8 +86,8 @@ func loadConfig() (*Config, error) {
 	v.AddConfigPath("/etc/status-checker/")
 	v.AddConfigPath(".")
 
-	if len(os.Args) > 1 {
-		v.SetConfigFile(os.Args[1])
+	if flag.NArg() > 0 {
+		v.SetConfigFile(flag.Arg(0))
 	}
 
 	v.AutomaticEnv()
@@ -241,6 +242,11 @@ func runCheckLoop(path, check string, interval time.Duration, antithesis bool, w
 }
 
 func main() {
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: %s [path/to/config]\n", os.Args[0])
+	}
+	flag.Parse()
+
 	cfg, err := loadConfig()
 	if err != nil {
 		log.Fatal().Err(err).Msg("Failed to load config")
