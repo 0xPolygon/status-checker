@@ -19,7 +19,10 @@ checks_dir: ./checks
 # Automatically make check scripts executable (default: false).
 modify_permissions: false
 
-# Maps the relative file name (inside of `checks_dir`) of the script to 
+# Whether to run Antithesis test assertions (default: false).
+antithesis: true
+
+# Maps the relative file name (inside of `checks_dir`) of the script to
 # the check configuration.
 checks:
   block-height.sh:

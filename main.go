@@ -13,6 +13,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/antithesishq/antithesis-sdk-go/assert"
 	"github.com/go-playground/validator"
 	"github.com/go-viper/mapstructure/v2"
 	"github.com/prometheus/client_golang/prometheus"
@@ -49,6 +50,7 @@ type Config struct {
 	Checks            map[string]Check `mapstructure:"checks"`
 	ModifyPermissions bool             `mapstructure:"modify_permissions"`
 	PromPort          uint             `mapstructure:"prom_port" validate:"required"`
+	Antithesis        bool             `mapstructure:"antithesis"`
 }
 
 // expandEnvHookFunc expands environment variables when the viper is decoding
@@ -221,12 +223,19 @@ func runCheck(path, check string) bool {
 	return true
 }
 
-func runCheckLoop(path, check string, interval time.Duration, wg *sync.WaitGroup) {
+func runCheckLoop(path, check string, interval time.Duration, antithesis bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for {
 		ok := runCheck(path, check)
-		metric.WithLabelValues(check, strconv.FormatBool(ok)).Inc()
+
 		log.Info().Str("check", check).Bool("success", ok).Send()
+		metric.WithLabelValues(check, strconv.FormatBool(ok)).Inc()
+
+		if antithesis {
+			details := map[string]any{"check": check, "success": ok}
+			assert.Always(ok, "check run succeeded", details)
+		}
+
 		blockFor(interval, check)
 	}
 }
@@ -266,7 +275,7 @@ func main() {
 		return
 	}
 
-	log.Info().Msg("Starting Status Checker")
+	log.Info().Msg("Starting status-checker")
 
 	var wg sync.WaitGroup
 	for _, path := range checks {
@@ -297,7 +306,7 @@ func main() {
 		}
 
 		wg.Add(1)
-		go runCheckLoop(path, name, *check.Interval, &wg)
+		go runCheckLoop(path, name, *check.Interval, cfg.Antithesis, &wg)
 	}
 
 	wg.Wait()
