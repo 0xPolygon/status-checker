@@ -12,5 +12,8 @@ RUN go install github.com/antithesishq/antithesis-sdk-go/tools/antithesis-go-ins
 # https://github.com/0xPolygon/kurtosis-cdk/blob/main/docker/toolbox.Dockerfile
 FROM minhdvu/toolbox:0.0.8
 COPY --from=builder /gen/customer/status-checker /usr/bin/status-checker
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends golang-go && \
+  rm -rf /var/lib/apt/lists/*
 EXPOSE 9090
 CMD ["status-checker"]
