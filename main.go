@@ -234,7 +234,7 @@ func runCheckLoop(path, check string, interval time.Duration, antithesis bool, w
 
 		if antithesis {
 			details := map[string]any{"check": check, "success": ok}
-			assert.Always(ok, "check run succeeded", details)
+			assert.Always(ok, check, details)
 		}
 
 		blockFor(interval, check)
