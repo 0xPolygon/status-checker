@@ -209,7 +209,7 @@ func runCheck(path, check string) bool {
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
-		if strings.Contains(line, "Error") {
+		if strings.Contains(strings.ToLower(line), "error") {
 			logger.Error().Msg(line)
 		} else {
 			logger.Debug().Msg(line)
