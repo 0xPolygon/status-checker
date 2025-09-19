@@ -10,7 +10,7 @@ RUN go install github.com/antithesishq/antithesis-sdk-go/tools/antithesis-go-ins
 
 # https://hub.docker.com/r/minhdvu/toolbox
 # https://github.com/0xPolygon/kurtosis-cdk/blob/main/docker/toolbox.Dockerfile
-FROM minhdvu/toolbox:0.0.8
+FROM europe-west2-docker.pkg.dev/prj-polygonlabs-devtools-dev/public/toolbox:0.0.12
 COPY --from=builder /gen/customer/status-checker /usr/bin/status-checker
 COPY --from=builder /gen/symbols/ /symbols/
 RUN apt-get update && \
