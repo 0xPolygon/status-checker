@@ -1,6 +1,6 @@
 module github.com/0xPolygon/fanm
 
-go 1.24.2
+go 1.26.10
 
 require (
 	github.com/antithesishq/antithesis-sdk-go v0.4.3
